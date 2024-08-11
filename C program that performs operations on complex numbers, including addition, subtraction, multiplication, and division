@@ -1,0 +1,70 @@
+#include <stdio.h>
+
+typedef struct {
+    double real;
+    double imag;
+} Complex;
+
+Complex add(Complex a, Complex b) {
+    Complex result;
+    result.real = a.real + b.real;
+    result.imag = a.imag + b.imag;
+    return result;
+}
+
+Complex subtract(Complex a, Complex b) {
+    Complex result;
+    result.real = a.real - b.real;
+    result.imag = a.imag - b.imag;
+    return result;
+}
+
+Complex multiply(Complex a, Complex b) {
+    Complex result;
+    result.real = a.real * b.real - a.imag * b.imag;
+    result.imag = a.real * b.imag + a.imag * b.real;
+    return result;
+}
+
+Complex divide(Complex a, Complex b) {
+    Complex result;
+    double denominator = b.real * b.real + b.imag * b.imag;
+    result.real = (a.real * b.real + a.imag * b.imag) / denominator;
+    result.imag = (a.imag * b.real - a.real * b.imag) / denominator;
+    return result;
+}
+
+void printComplex(Complex c) {
+    if (c.imag >= 0)
+        printf("%.2f + %.2fi\n", c.real, c.imag);
+    else
+        printf("%.2f - %.2fi\n", c.real, -c.imag);
+}
+
+int main() {
+    Complex a = {4.0, 3.0};
+    Complex b = {2.0, -1.0};
+
+    printf("a = ");
+    printComplex(a);
+    printf("b = ");
+    printComplex(b);
+
+    Complex sum = add(a, b);
+    printf("Sum: ");
+    printComplex(sum);
+
+    Complex diff = subtract(a, b);
+    printf("Difference: ");
+    printComplex(diff);
+
+    Complex prod = multiply(a, b);
+    printf("Product: ");
+    printComplex(prod);
+
+    Complex quot = divide(a, b);
+    printf("Quotient: ");
+    printComplex(quot);
+
+    return 0;
+}
